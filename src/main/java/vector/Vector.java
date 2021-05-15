@@ -3,8 +3,9 @@ package vector;
 import java.lang.Math;
 
 public class Vector {
-    public double magnitude;
-    public double angle;
+    // a basic 2 dimensional vector, represented by:
+    public double magnitude; // a magnitude
+    public double angle; // and an angle in radians
 
     public Vector(double m, double a) {
         this.magnitude = m;
@@ -19,6 +20,7 @@ public class Vector {
         return new Vector(m, a / 180 * Math.PI);
     }
 
+    // get the reciprocal of a vector
     public Vector recip() {
         return new Vector(this.magnitude, this.angle + Math.PI);
     }
@@ -49,6 +51,8 @@ public class Vector {
         return new Vector[] {get_x_component(), get_y_component()};
     }
 
+    // for calculating the angle of a vector whose 
+    // x and y components are respectively denoted by x and y
     public static double angle(double x, double y) {
         if (x < 0) {
             return Math.atan(y/x) + Math.PI;
@@ -60,7 +64,12 @@ public class Vector {
             }
         }
     }
-
+    
+    // is there an interface I can implement so that 
+    // two vectors can be added just with the + operator?
+    // in Rust, this is done via implementing the std::ops::Add trait
+    
+    // adding two vectors 
     public static Vector add(Vector lhs, Vector rhs) {
         double x1 = lhs.magnitude * Math.cos(lhs.angle);
         double y1 = lhs.magnitude * Math.sin(lhs.angle);
@@ -77,6 +86,8 @@ public class Vector {
         return new Vector(magnitude, angle);
     }
 
+    // since subtracting a vectors is actually 
+    // adding its reciprocal
     public static Vector subtract(Vector lhs, Vector rhs) {
         return add(lhs, rhs.recip());
     }
